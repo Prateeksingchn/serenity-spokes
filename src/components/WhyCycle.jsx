@@ -61,7 +61,7 @@ function WhyCycle() {
             The Cycling Journal
           </h1>
         </div>
-        <div className="flex-grow gap-1 flex relative">
+        <div className="flex-grow gap-4 flex relative">
           <div
             ref={leftRef}
             className="w-1/2 h-[73vh] rounded-2xl mb-4 ml-5 bg-[#0C292E] p-8 flex flex-col justify-center"
