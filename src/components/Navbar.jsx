@@ -15,7 +15,7 @@ const Navbar = () => {
   }, [])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-10 transition-all duration-300 ${
+    <nav className={`fixed top-0 left-0 right-0 z-[999] transition-all duration-300 ${
       scrolled ? 'bg-black bg-opacity-80' : 'bg-transparent'
     }`}>
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">

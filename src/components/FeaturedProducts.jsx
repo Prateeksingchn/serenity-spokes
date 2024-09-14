@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, ShoppingCart } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const products = [
   { name: "Carbon Frame", price: 1299, category: "Parts", image: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
@@ -16,37 +17,69 @@ const products = [
 ];
 
 const ProductCard = ({ product, className }) => (
-  <div className={`group relative overflow-hidden ${className}`}>
+  <div className={`group relative overflow-hidden  ${className}`}>
     <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
     <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-      <h3 className="text-white text-xl font-bold mb-1">{product.name}</h3>
-      <p className="text-white mb-2">${product.price}</p>
-    </div>
-    <div className="absolute top-2 right-2 bg-white text-black text-xs font-bold px-2 py-1 rounded-full">
-      {product.category}
+      <h3 className="text-white text-lg font-bold mb-1">{product.name}</h3>
+      <p className="text-white text-md mb-2">${product.price}</p>
     </div>
   </div>
 );
 
 const FeaturedProducts = () => {
   return (
-    <div className="bg-[#F5F4EF] p-8 font-sans">
-      <div className="max-w-7xl mx-auto">
+    <div className="bg-[#e6eaf0] p-8 font-sans relative overflow-hidden">
+      {/* Animated Circles */}
+      <motion.div
+        className="absolute top-0 left-4 w-72 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70"
+        animate={{
+          scale: [1, 1.1, 1],
+          x: [0, 50, 0],
+          y: [0, 30, 0],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          repeatType: "reverse",
+        }}
+      />
+      <motion.div
+        className="absolute -bottom-2 right-0 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70"
+        animate={{
+          scale: [1, 1.2, 1],
+          x: [0, -30, 0],
+          y: [0, -50, 0],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          repeatType: "reverse",
+        }}
+      />
+
+      <div className="max-w-7xl px-8 mx-auto relative z-10">
         <div className="grid grid-cols-4 gap-4 auto-rows-[200px]">
-          <div className="col-span-2 row-span-2 bg-[#F5F4EF] p-6 flex flex-col justify-between">
+          <div className="col-span-2 row-span-2  bg-transparent p-6 flex flex-col justify-between backdrop-filter backdrop-blur-lg bg-opacity-80">
             <div className="space-y-4">
-              <h1 className="text-4xl font-bold text-gray-800 tracking-tight">Serenity Spokes</h1>
+              <h1 className="text-6xl font-bold text-gray-800 tracking-tight">Serenity Spokes</h1>
               <p className="text-lg text-gray-600 leading-relaxed">
                 Elevate your ride with our premium cycling gear. Innovative designs meet uncompromising performance.
               </p>
             </div>
             <div className="flex justify-between items-center">
-              <button className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors duration-300 text-sm font-semibold">
+              <motion.button 
+                className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors duration-300 text-sm font-semibold"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 Explore Collection
-              </button>
-              <button className="flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-300">
+              </motion.button>
+              <motion.button 
+                className="flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-300"
+                whileHover={{ x: 5 }}
+              >
                 View all <ArrowRight className="ml-2 h-5 w-5" />
-              </button>
+              </motion.button>
             </div>
           </div>
           <ProductCard product={products[0]} className="col-span-2 row-span-2" />
