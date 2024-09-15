@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Link } from "react-router-dom";
+import WhyCycleBottomSection from "./WhyCycleBottomSection";
 
 // Register the ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -18,22 +18,22 @@ function WhyCycle() {
 
   const achievements = {
     today: [
-      { threshold: 5, text: "Morning Energizer! You've cycled the length of Central Park." },
-      { threshold: 20, text: "Urban Explorer! You've traversed Manhattan." },
-      { threshold: 50, text: "Half-Century Rider! You've conquered a serious distance." },
-      { threshold: 100, text: "Century Crusher! You've completed a milestone ride." },
+      { threshold: 5, text: "Chai Break Rider! You've cycled the length of Marine Drive in Mumbai." },
+      { threshold: 20, text: "City Explorer! You've traversed the distance of Delhi's Ring Road." },
+      { threshold: 50, text: "Half-Century Champion! You've conquered a serious distance." },
+      { threshold: 100, text: "Century Crusher! You've cycled from Mumbai to Pune!" },
     ],
     month: [
-      { threshold: 100, text: "Consistent Commuter! You're reducing your carbon footprint." },
-      { threshold: 300, text: "Weekend Warrior! You're making the most of your free time." },
-      { threshold: 500, text: "Endurance Enthusiast! You're building impressive stamina." },
-      { threshold: 1000, text: "Mega Mileage Master! You've cycled the length of Britain!" },
+      { threshold: 100, text: "Green Commuter! You're significantly reducing your carbon footprint." },
+      { threshold: 300, text: "Weekend Warrior! You've cycled the equivalent of Delhi to Agra and back." },
+      { threshold: 500, text: "Endurance Enthusiast! You've virtually reached from Mumbai to Goa!" },
+      { threshold: 1000, text: "Mega Mileage Master! You've cycled the length of India's western coastline!" },
     ],
     year: [
-      { threshold: 1000, text: "Yearly Goal Getter! You're on track for a great cycling year." },
-      { threshold: 3000, text: "Cross-Country Crusher! You've virtually cycled across the USA." },
-      { threshold: 5000, text: "Globe Trotter! You've cycled 1/8th of the Earth's circumference!" },
-      { threshold: 10000, text: "Cycling Centurion! You've achieved a monumental yearly distance!" },
+      { threshold: 1000, text: "Yearly Goal Getter! You're on track for an incredible cycling year." },
+      { threshold: 3000, text: "Cross-Country Crusher! You've virtually cycled from Kanyakumari to Kashmir!" },
+      { threshold: 5000, text: "Subcontinent Explorer! You've cycled the equivalent of India's Golden Quadrilateral!" },
+      { threshold: 10000, text: "Cycling Maharaja! You've achieved a monumental yearly distance!" },
     ]
   };
 
@@ -48,8 +48,10 @@ function WhyCycle() {
   };
 
   const handleDistanceChange = (e) => {
-    const distance = parseFloat(e.target.value);
-    setCyclingDistance(isNaN(distance) ? 0 : distance);
+    const value = e.target.value;
+    if (value === '' || /^\d*\.?\d*$/.test(value)) {
+      setCyclingDistance(value === '' ? 0 : parseFloat(value));
+    }
   };
 
   const handleTimeFrameChange = (frame) => {
@@ -196,25 +198,35 @@ function WhyCycle() {
           </div>
           <div
             ref={rightRef}
-            className="w-1/2 h-[70vh] rounded-3xl mb-4 mr-5 bg-gradient-to-br from-[#0C292E] to-[#2D6B70] text-white p-8 flex flex-col"
+            className="w-1/2 h-[70vh] rounded-3xl mb-4 mr-5 bg-gradient-to-br from-[#0C292E] to-[#2D6B70] text-white px-8 py-6 flex flex-col"
           >
             <h2 className="text-3xl font-bold mb-6">Cycling Achievement Playground</h2>
             <div className="flex-grow flex flex-col justify-center items-center">
               <div className="w-full max-w-md">
-                <div className="mb-4">
-                  <label htmlFor="distance" className="block text-sm font-medium mb-2">
-                    Enter your cycling distance (km):
-                  </label>
-                  <input
-                    type="number"
-                    id="distance"
-                    value={cyclingDistance}
-                    onChange={handleDistanceChange}
-                    className="w-full px-3 py-2 bg-white/10 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-white"
-                    placeholder="Enter distance"
-                  />
-                </div>
                 <div className="mb-6">
+                  <label htmlFor="distance" className="block text-sm font-medium mb-2">
+                    Enter your cycling distance
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      id="distance"
+                      value={cyclingDistance === 0 ? '' : cyclingDistance}
+                      onChange={handleDistanceChange}
+                      className="w-full px-12 py-3 bg-white/10 rounded-lg text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300 text-lg appearance-none"
+                      placeholder="Enter distance"
+                    />
+                    <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-300 text-lg font-semibold">
+                      km
+                    </span>
+                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-300">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div className="mb-8">
                   <span className="block text-sm font-medium mb-2">Time frame:</span>
                   <div className="flex space-x-4">
                     {['today', 'month', 'year'].map((frame) => (
@@ -222,10 +234,12 @@ function WhyCycle() {
                         key={frame}
                         onClick={() => handleTimeFrameChange(frame)}
                         className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
-                          timeFrame === frame ? "bg-white text-[#0C292E]" : "bg-white/20"
+                          timeFrame === frame 
+                            ? "bg-white text-[#0C292E] shadow-lg" 
+                            : "bg-white/20 hover:bg-white/30"
                         }`}
                       >
-                        {frame}
+                        {frame.charAt(0).toUpperCase() + frame.slice(1)}
                       </button>
                     ))}
                   </div>
@@ -235,23 +249,25 @@ function WhyCycle() {
                     className="absolute inset-0 bg-white opacity-10 transition-all duration-500 ease-out"
                     style={{ width: `${achievement && achievement.threshold > 0 ? (cyclingDistance / achievement.threshold) * 100 : 0}%`, maxWidth: '100%' }}
                   ></div>
-                  <h3 className="text-xl font-semibold mb-4 relative z-10">Your Achievement</h3>
-                  <p className="text-lg relative z-10">{achievement ? achievement.text : "Start cycling to unlock achievements!"}</p>
+                  <h3 className="text-2xl font-semibold mb-4 relative z-10">Your Achievement</h3>
+                  <p className="text-lg relative z-10 mb-4">{achievement ? achievement.text : "Start cycling to unlock achievements!"}</p>
                   {achievement && achievement.threshold > 0 && (
-                    <p className="mt-4 text-sm relative z-10">
-                      {cyclingDistance >= achievement.threshold 
-                        ? "Congratulations! You've reached this milestone!" 
-                        : `${achievement.threshold - cyclingDistance} km more to reach the next milestone!`}
-                    </p>
+                    <div className="mt-4 relative z-10">
+                      <div className="w-full bg-white/20 rounded-full h-4 mb-2">
+                        <div 
+                          className="bg-white rounded-full h-4 transition-all duration-500 ease-out"
+                          style={{ width: `${Math.min((cyclingDistance / achievement.threshold) * 100, 100)}%` }}
+                        ></div>
+                      </div>
+                      <p className="text-sm">
+                        {cyclingDistance >= achievement.threshold 
+                          ? "Congratulations! You've reached this milestone!" 
+                          : `${(achievement.threshold - cyclingDistance).toFixed(1)} km more to reach the next milestone!`}
+                      </p>
+                    </div>
                   )}
                 </div>
               </div>
-            </div>
-            <div className="mt-6 text-center">
-              <p className="text-sm text-gray-300 mb-2">Unlock new achievements and track your progress!</p>
-              <button className="bg-white text-[#0C292E] px-6 py-2 rounded-full text-sm uppercase tracking-wider font-bold transition-all duration-300 hover:bg-[#EBE8E5]">
-                View All Achievements
-              </button>
             </div>
           </div>
           <div
@@ -267,140 +283,8 @@ function WhyCycle() {
         </div>
       </div>
 
-      {/* Revamped bottom section */}
-      <div className="w-full bg-gradient-to-b from-[#EBE8E5] to-[#F8F8F8] ">
-        <div className="max-w-7xl mx-auto px-4">
-          {/* Why Cycling is Good section */}
-          <div className="rounded-lg py-4 mb-10">
-            <h2 className="text-3xl font-bold mb-10 text-center text-[#0C292E]">
-              Why Cycling is Good for You
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "Physical Health",
-                  description:
-                    "Cycling is a low-impact exercise that improves cardiovascular fitness, builds muscle strength, and enhances overall endurance.",
-                  icon: "🚴‍♂️",
-                },
-                {
-                  title: "Mental Wellbeing",
-                  description:
-                    "Regular cycling can reduce stress, anxiety, and depression while boosting mood and cognitive function.",
-                  icon: "🧠",
-                },
-                {
-                  title: "Environmental Impact",
-                  description:
-                    "Choosing a bike over a car reduces carbon emissions, contributing to a cleaner and healthier environment.",
-                  icon: "🌿",
-                },
-                {
-                  title: "Social Connections",
-                  description:
-                    "Cycling can be a social activity, allowing you to join clubs, participate in events, and make new friends.",
-                  icon: "👥",
-                },
-                {
-                  title: "Cost-Effective",
-                  description:
-                    "Compared to owning and maintaining a car, cycling is a more affordable mode of transportation.",
-                  icon: "💰",
-                },
-                {
-                  title: "Exploration",
-                  description:
-                    "Cycling opens up new ways to explore your surroundings, discover hidden gems, and experience nature.",
-                  icon: "🗺️",
-                },
-              ].map((item, index) => (
-                <div key={index} className="flex items-start">
-                  <div className="text-4xl mr-4">{item.icon}</div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2 text-[#0C292E]">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-600">{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Completely revamped Elevate Your Ride section */}
-          <div className="pb-10">
-            <h2 className="text-3xl font-semibold mb-12 text-center text-[#0C292E] leading-tight">
-              Elevate Your Ride: Where Passion Meets Performance
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-[#0C292E] text-white p-8 rounded-3xl flex flex-col justify-between transform transition duration-300 hover:shadow-xl">
-                <div>
-                  <h3 className="text-2xl font-semibold mb-4">Premium Bikes</h3>
-                  <p className="mb-6">Discover our curated selection of top-tier bicycles, engineered for peak performance and unmatched style.</p>
-                  <ul className="list-disc list-inside mb-8">
-                    <li>Carbon fiber frames</li>
-                    <li>Electronic shifting systems</li>
-                    <li>Aerodynamic designs</li>
-                    <li>Custom color options</li>
-                  </ul>
-                </div>
-                <div className="relative inline-block group">
-                  <span className="absolute inset-0 bg-white rounded-full transition-all duration-300 ease-out transform group-hover:scale-105 group-hover:bg-opacity-80"></span>
-                  <Link 
-                    to="/shop" 
-                    className="relative inline-block px-6 py-3 text-[#0C292E] font-semibold transition-colors duration-300 rounded-full group-hover:text-[#1A4A4F]"
-                  >
-                    Explore Our Collection
-                  </Link>
-                </div>
-              </div>
-
-              <div className="relative h-80 md:h-auto overflow-hidden rounded-3xl transform transition duration-300 hover:shadow-xl group">
-                <img 
-                  src="https://images.unsplash.com/photo-1485965120208-91b3a4cc78be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                  alt="Premium Bike" 
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60 group-hover:opacity-70 transition-opacity duration-300"></div>
-                <p className="absolute bottom-4 left-4 text-white text-lg font-semibold group-hover:bottom-6 transition-all duration-300">Featured: Carbon Aero Pro</p>
-              </div>
-
-              <div className="relative h-80 md:h-auto overflow-hidden rounded-3xl transform transition duration-300 hover:shadow-xl group">
-                <img 
-                  src="https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                  alt="Pro Accessories" 
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60 group-hover:opacity-70 transition-opacity duration-300"></div>
-                <p className="absolute bottom-4 left-4 text-white text-lg font-semibold group-hover:bottom-6 transition-all duration-300">High-Performance Gear</p>
-              </div>
-
-              <div className="bg-[#0C292E] text-white p-8 rounded-3xl flex flex-col justify-between transform transition duration-300 hover:shadow-xl">
-                <div>
-                  <h3 className="text-2xl font-semibold mb-4">Expert Fitting & Pro Accessories</h3>
-                  <p className="mb-6">Experience our personalized fitting service and elevate your cycling with top-tier accessories.</p>
-                  <ul className="list-disc list-inside mb-8">
-                    <li>3D body scanning technology</li>
-                    <li>Customized bike adjustments</li>
-                    <li>Pro-level components</li>
-                    <li>Performance-enhancing gear</li>
-                  </ul>
-                </div>
-                <div className="relative inline-block group">
-                  <span className="absolute inset-0 bg-white rounded-full transition-all duration-300 ease-out transform group-hover:scale-105 group-hover:bg-opacity-80"></span>
-                  <Link 
-                    to="/booking" 
-                    className="relative inline-block px-6 py-3 text-[#0C292E] font-semibold transition-colors duration-300 rounded-full group-hover:text-[#1A4A4F]"
-                  >
-                    Book a Fitting Session
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Replace the bottom section with the new component */}
+      <WhyCycleBottomSection />
     </section>
   );
 }
