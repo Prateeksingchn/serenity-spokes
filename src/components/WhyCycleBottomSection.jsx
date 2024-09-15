@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function WhyCycleBottomSection() {
   return (
-    <div className="w-full bg-gradient-to-b from-[#EBE8E5] to-[#F8F8F8]">
+    <div className="w-full bg-gradient-to-b from-[#EBE8E5] to-[#F8F8F8] z-20">
       <div className="max-w-7xl mx-auto px-4">
         {/* Why Cycling is Good section */}
         <div className="rounded-lg py-4 mb-10">

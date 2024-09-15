@@ -124,7 +124,7 @@ function WhyCycle() {
         `}
       </style>
       <div className="sticky top-0 h-screen flex flex-col overflow-hidden">
-        <div className="flex flex-col justify-center items-center py-10 px-4 text-center">
+        <div className="flex flex-col justify-center items-center pt-10 pb-5 px-4 text-center">
           <h1 className="text-5xl font-sans font-bold mb-4 text-[#0C292E]">
             Pedal Your Way to Adventure
           </h1>
