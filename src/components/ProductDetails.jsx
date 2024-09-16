@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { products } from './FeaturedProducts';
 import { useCart } from '../context/CartContext';
-import Navbar from './Navbar';
+import { Navbar } from './Navbar';
 
 const ProductDetails = () => {
   const { id } = useParams();

@@ -4,7 +4,7 @@ import Home from './components/Home';
 import Shop from './components/Shop';
 import Cart from './components/Cart';
 import ProductDetails from './components/ProductDetails';
-import Navbar from './components/Navbar';
+import { Navbar } from './components/Navbar.jsx';
 import Footer from './components/Footer';
 import { CartProvider } from './context/CartContext';
 import './App.css';

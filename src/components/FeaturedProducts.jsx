@@ -63,24 +63,24 @@ const FeaturedProducts = () => {
           <div className="col-span-2 row-span-2  bg-transparent p-6 flex flex-col justify-between backdrop-filter backdrop-blur-lg bg-opacity-80">
             <div className="space-y-4">
               <h1 className="text-6xl font-bold text-gray-800 tracking-tight">Serenity Spokes</h1>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-lg text-gray-600 leading-relaxed pr-24">
                 Elevate your ride with our premium cycling gear. Innovative designs meet uncompromising performance.
+              </p>
+              <p className="text-md text-gray-700 font-semibold">
+                Our top-selling products:
               </p>
             </div>
             <div className="flex justify-between items-center">
-              <motion.button 
-                className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors duration-300 text-sm font-semibold"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Explore Collection
-              </motion.button>
-              <motion.button 
-                className="flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-300"
-                whileHover={{ x: 5 }}
-              >
-                View all <ArrowRight className="ml-2 h-5 w-5" />
-              </motion.button>
+              <Link to="/shop">
+                <motion.button 
+                  className="bg-blue-600 text-white px-6 py-3 flex rounded-full hover:bg-blue-700 transition-colors duration-300 text-sm font-semibold"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  View all <ArrowRight className="ml-2 h-5 w-5" />
+                </motion.button>
+              </Link>
+             
             </div>
           </div>
           <ProductCard product={products[0]} className="col-span-2 row-span-2" />
